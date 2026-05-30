@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class TarefasService {
 
     public TarefasDTO gravarTarefas(String token, TarefasDTO dto) {
         String email = jwtUtil.extrairEmailToken(token.substring(7));
-        dto.setDataCriacao(LocalDateTime.now());
+        dto.setDataCriacao(LocalDateTime.now(ZoneId.systemDefault()));
         dto.setStatusNotificacaoEnum(StatusNotificacaoEnum.PENDENTE);
         dto.setEmailUsuario(email);
         TarefasEntity entity = tarefasConverter.paraTarefasEntity(dto);
